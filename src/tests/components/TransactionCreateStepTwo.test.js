@@ -7,7 +7,7 @@ import TransactionCreateStepTwo from "../../components/TransactionCreateStepTwo"
 // testing library recomends almost all the cases use getByRole but in forms they recommend getByLabelText
 // Unfortunately formik doesn't have labels
 
-test("on initial render, the pay button is disable", async () => {
+/* test("on initial render, the pay button is disable", async () => {
   render(<TransactionCreateStepTwo sender={{ id: 5 }} receiver={{ id: 4 }} />);
 
   // screen.debug();
@@ -22,6 +22,26 @@ test("if an amount and note is entered, the pay button becomes enabled", async (
 
   // Check the tree to inspect elements
   // screen.getByRole("");
+  userEvent.type(screen.getByPlaceholderText(/amount/i), "50");
+  userEvent.type(screen.getByPlaceholderText(/add a note/i), "dinner with my family");
+
+  // debug or screen.getByRole("") to debug in a nicest way
+  // screen.getByRole("");
+  expect(await screen.findByRole("button", { name: /pay/i })).toBeEnabled();
+});
+ */
+
+// Integration test
+
+test("if an amount and note is entered, the pay button becomes enabled", async () => {
+  render(<TransactionCreateStepTwo sender={{ id: 5 }} receiver={{ id: 4 }} />);
+
+  // Check the tree to inspect elements
+  // screen.getByRole("");
+
+  // First tine is disabled
+  expect(await screen.findByRole("button", { name: /pay/i })).toBeDisabled();
+
   userEvent.type(screen.getByPlaceholderText(/amount/i), "50");
   userEvent.type(screen.getByPlaceholderText(/add a note/i), "dinner with my family");
 
